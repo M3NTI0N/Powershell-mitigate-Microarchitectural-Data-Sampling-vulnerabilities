@@ -26,11 +26,11 @@ Function CreateDownFolder($downloadfolder) {
 New-Item -Path "$downloadfolder" -ItemType Directory
 }
 Function DownloadUpdate($downloadURL) {
-    Invoke-WebRequest -Uri $downloadURL -OutFile "$downloadfolder/WindowsUpdate.msu"
+    Invoke-WebRequest -Uri $downloadURL -OutFile "$downloadfolder\WindowsUpdate.msu"
 }
 Function InstallUpdate() {
     Write-Information "Starting Update"
-    Start-Process -FilePath $Wus -ArgumentList ("$downloadfolder/WindowsUpdate.msu", '/quiet', '/norestart', "/log:$downloadfolder\Logs\WindowsUpdate.log") -Wait
+    Start-Process -FilePath $Wus -ArgumentList ("$downloadfolder\WindowsUpdate.msu", '/quiet', '/norestart', "/log:$downloadfolder\Logs\WindowsUpdate.log") -Wait
     Write-Information "Finished Update"
 }
 
