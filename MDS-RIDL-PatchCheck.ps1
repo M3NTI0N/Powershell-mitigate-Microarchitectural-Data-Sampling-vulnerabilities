@@ -38,6 +38,23 @@ $versionbuild = (Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\Cur
 $bitver = (gwmi win32_operatingsystem | select osarchitecture).osarchitecture
 Write-Host $versionbuild
 if ($patched -eq "0") {
+    if ($versionbuild -eq "1903") {
+        CreateDownFolder -downloadfolder $downloadfolder
+        if ($bitver -eq "64-bit") {
+            #64 bit logic here
+            $url = "http://download.windowsupdate.com/c/msdownload/update/software/secu/2019/05/windows10.0-kb4497936-x64_4ac9328bb1376d2cadb09f56ba95ac9b08b88fba.msu"
+            Write "x64"
+            DownloadUpdate -downloadURL $url
+            InstallUpdate
+        }
+        else {
+            #32 bit logic here
+            $url = "http://download.windowsupdate.com/c/msdownload/update/software/secu/2019/05/windows10.0-kb4497936-x86_2d93313d2c7e6e6feca5e974abe6f67dbd8e9394.msu"
+            Write "x86"
+            DownloadUpdate -downloadURL $url
+            InstallUpdate
+        }
+    }
     if ($versionbuild -eq "1809") {
         CreateDownFolder -downloadfolder $downloadfolder
         if ($bitver -eq "64-bit") {
